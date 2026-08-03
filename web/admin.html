@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NasrinShop — админка</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="atlas-topline" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-name">Nasrin<em>Shop</em></span>
+      <span class="brand-tagline">Панель администратора</span>
+    </div>
+    <a class="admin-link" href="index.html">← Вернуться в каталог</a>
+  </div>
+</header>
+
+<!-- ЭКРАН ВХОДА -->
+<main class="admin-login" id="login-screen">
+  <form id="login-form" class="login-card">
+    <h1 class="login-title">Вход</h1>
+    <p class="login-hint">Доступ только для администратора магазина.</p>
+
+    <label class="field">
+      <span>Логин</span>
+      <input type="text" id="login-user" autocomplete="username" required>
+    </label>
+    <label class="field">
+      <span>Пароль</span>
+      <input type="password" id="login-pass" autocomplete="current-password" required>
+    </label>
+
+    <button type="submit" class="btn-primary">Войти</button>
+    <p class="login-error" id="login-error" hidden>Неверный логин или пароль.</p>
+  </form>
+</main>
+
+<!-- ПАНЕЛЬ УПРАВЛЕНИЯ -->
+<main class="admin-panel" id="admin-panel" hidden>
+
+  <div class="admin-topbar">
+    <p class="admin-status">Вы вошли как администратор.</p>
+    <button type="button" class="btn-ghost" id="logout-btn">Выйти</button>
+  </div>
+
+  <section class="admin-section">
+    <h2>Категории</h2>
+
+    <form id="add-category-form" class="inline-form">
+      <input type="text" id="new-category-name" placeholder="Название категории, например «Атлас»" required>
+      <button type="submit" class="btn-primary">Добавить</button>
+    </form>
+
+    <ul class="admin-list" id="categories-list">
+      <!-- рендерится через JS -->
+    </ul>
+  </section>
+
+  <section class="admin-section">
+    <h2>Материалы</h2>
+
+    <label class="field">
+      <span>Категория</span>
+      <select id="category-select"></select>
+    </label>
+
+    <ul class="admin-list material-list" id="materials-list">
+      <!-- рендерится через JS -->
+    </ul>
+
+    <form id="add-material-form" class="stacked-form">
+      <label class="field">
+        <span>Ссылка на изображение</span>
+        <input type="url" id="new-material-image" placeholder="https://..." required>
+      </label>
+      <label class="field">
+        <span>Цена</span>
+        <input type="number" id="new-material-price" min="1" placeholder="0" required>
+      </label>
+      <button type="submit" class="btn-primary">Добавить материал в категорию</button>
+    </form>
+  </section>
+
+  <p class="admin-message" id="admin-message" role="status"></p>
+</main>
+
+<script src="js/config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

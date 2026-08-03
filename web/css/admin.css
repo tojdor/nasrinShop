@@ -1,0 +1,205 @@
+.admin-body{ min-height: 100vh; }
+
+/* ---------- login screen ---------- */
+.admin-login{
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+.login-card{
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg-soft);
+  border: 1px solid rgba(231, 206, 154, 0.16);
+  border-radius: 16px;
+  padding: 32px 28px;
+}
+.login-title{
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--cream-text);
+}
+.login-hint{
+  margin: 0 0 22px;
+  font-size: 13px;
+  color: var(--cream-text-70);
+}
+.login-error{
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: #E08A8A;
+}
+
+/* ---------- shared form fields ---------- */
+.field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--cream-text-70);
+}
+.field input,
+.field select{
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.field input:focus,
+.field select:focus{ border-color: var(--gold); }
+
+.btn-primary{
+  width: 100%;
+  appearance: none;
+  border: none;
+  background: var(--gold-soft);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  padding: 11px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+.btn-primary:hover{ filter: brightness(1.08); }
+
+.btn-ghost{
+  appearance: none;
+  border: 1px solid rgba(231, 206, 154, 0.35);
+  background: transparent;
+  color: var(--cream-text-70);
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.btn-ghost:hover{ color: var(--cream-text); }
+
+/* ---------- admin panel layout ---------- */
+.admin-panel{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px clamp(20px, 5vw, 40px) 60px;
+}
+.admin-topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.admin-status{
+  margin: 0;
+  font-size: 13px;
+  color: var(--cream-text-70);
+}
+
+.admin-section{
+  background: var(--bg-soft);
+  border: 1px solid rgba(231, 206, 154, 0.14);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.admin-section h2{
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--cream-text);
+}
+
+.inline-form{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.inline-form input{
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--card);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.inline-form .btn-primary{ width: auto; white-space: nowrap; }
+
+.stacked-form{ margin-top: 18px; }
+.stacked-form .btn-primary{ margin-top: 4px; }
+
+.admin-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.admin-list li{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(251, 241, 230, 0.06);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+.material-list li{ align-items: flex-start; }
+.material-thumb{
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--card);
+  margin-right: 10px;
+}
+.material-row-info{
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+.material-row-info span{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.delete-btn{
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #E08A8A;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.delete-btn:hover{ text-decoration: underline; }
+
+.admin-message{
+  min-height: 20px;
+  font-size: 13px;
+  color: var(--gold-soft);
+}
+.admin-message.is-error{ color: #E08A8A; }
+
+.empty-note{
+  font-size: 13px;
+  color: var(--cream-text-70);
+  font-style: italic;
+}

@@ -5,13 +5,14 @@ import (
 	"errors"
 
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 	myerrors "github.com/tojdor/nasrinShop/internal/myErrors"
 )
 
 type Category struct {
-	ID   int
-	Name string
+	ID   int `json:"id"`
+	Name string `json:"name"`
 }
 
 type Storage struct {
@@ -33,10 +34,17 @@ func (s *Storage) Add(ctx context.Context, name string) (int, error) {
 	var id int
 	err := s.pool.QueryRow(
 		ctx,
-		"INSERT INTO categories name VALUE $1 RETURNING id",
+		"INSERT INTO categories (name) VALUES ($1) RETURNING id",
 		name,
 	).Scan(&id)
-	return id, err
+	if err!=nil{
+		var pgErr *pgconn.PgError
+		if errors.As(err, &pgErr) && pgErr.Code == "23505"{
+			return 0, myerrors.ErrConflict
+		}
+		return 0, err
+	}
+	return id, nil
 }
 
 func (s *Storage) GetIDByName(ctx context.Context, name string) (int, error) {
@@ -60,6 +68,7 @@ func (s *Storage) GetAll(ctx context.Context) ([]Category, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		var category Category

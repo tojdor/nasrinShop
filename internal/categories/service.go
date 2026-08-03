@@ -2,6 +2,7 @@ package categories
 
 import (
 	"context"
+	"strings"
 
 	myerrors "github.com/tojdor/nasrinShop/internal/myErrors"
 )
@@ -17,7 +18,8 @@ func NewService(storage Storer) *Service {
 }
 
 func (s *Service) Add(ctx context.Context, name string) (int, error) {
-	if len(name) <= 0 {
+	name = strings.TrimSpace(name)
+	if name == "" {
 		return 0, myerrors.ErrBadRequest
 	}
 

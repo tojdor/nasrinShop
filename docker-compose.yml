@@ -12,7 +12,27 @@ services:
       - "5432:5432"
 
     volumes:
-      - postgres_data:var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nasrin_shop"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: nasrin-shop
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    ports:
+      - "8080:8080"
+
+    env_file:
+      - .env
 
 volumes:
   postgres_data:

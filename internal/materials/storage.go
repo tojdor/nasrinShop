@@ -8,10 +8,10 @@ import (
 )
 
 type Material struct {
-	ID         int
-	CategoryID int
-	Price      string
-	ImgURL     string
+	ID         int `json:"id"`
+	CategoryID int `json:"category_id"`
+	Price      int `json:"price"`
+	ImgURL     string `json:"image_url"`
 }
 
 type Storage struct {
@@ -25,7 +25,7 @@ type Storer interface {
 		price int,
 		imgURL string,
 	) (int, error)
-	GetByCategorieID(
+	GetByCategoryID(
 		ctx context.Context,
 		categoryID int,
 	) ([]Material, error)
@@ -35,17 +35,23 @@ type Storer interface {
 	) error
 }
 
+func NewStorage(pool *pgxpool.Pool) *Storage {
+	return &Storage{
+		pool: pool,
+	}
+}
+
 func (s *Storage) Add(
 	ctx context.Context,
-	categorieID int,
+	categoryID int,
 	price int,
 	imgURL string,
 ) (int, error) {
 
 	var id int
 	err := s.pool.QueryRow(ctx,
-		"INSERT INTO materials(categorie_id, price, image_url) VALUES $1, $2, $3 RETURNING id",
-		categorieID,
+		"INSERT INTO materials (category_id, price, image_url) VALUES ($1, $2, $3) RETURNING id",
+		categoryID,
 		price,
 		imgURL,
 	).Scan(&id)
@@ -53,17 +59,18 @@ func (s *Storage) Add(
 	return id, err
 }
 
-func (s *Storage) GetByCategorieID(ctx context.Context, categorieID int) ([]Material, error) {
+func (s *Storage) GetByCategoryID(ctx context.Context, categoryID int) ([]Material, error) {
 	materials := make([]Material, 0)
 
 	rows, err := s.pool.Query(
 		ctx,
-		"SELECT id, category_id, price, image_url FROM materials WHERE categorie_id = $1",
-		categorieID,
+		"SELECT id, category_id, price, image_url FROM materials WHERE category_id = $1",
+		categoryID,
 	)
 	if err != nil {
 		return nil, err
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		var material Material
